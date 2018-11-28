@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gareth.persistence.domain.Prize;
 import com.gareth.service.PrizeService;
 
 @RestController
@@ -14,8 +15,8 @@ public class PrizeEndpoint {
 	PrizeService service;
 
 	@RequestMapping("${URL.method}")
-	public String getPrize(@PathVariable String accountNumber) {
-		String prize = service.getPrize(accountNumber);
+	public Prize getPrize(@PathVariable String accountNumber) {
+		Prize prize = service.getPrize(accountNumber);
 		return prize;
 	}
 }

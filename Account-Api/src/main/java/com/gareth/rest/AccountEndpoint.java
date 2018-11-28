@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.gareth.persistence.domain.Prize;
 import com.gareth.persistence.domain.Account;
 import com.gareth.service.AccountService;
 
@@ -34,9 +35,9 @@ public class AccountEndpoint {
 	private String offerURL;
 
 	@GetMapping("${URL.method.processOffer}")
-	public String send(@PathVariable String accountNumber) {
-		String offer = restTemplate.getForObject(offerURL + accountNumber, String.class);
-		return offer.toString();
+	public Prize send(@PathVariable String accountNumber) {
+		Prize thisPrize = restTemplate.getForObject(offerURL + accountNumber, Prize.class);
+		return thisPrize;
 	}
 
 	@GetMapping("${URL.method.getAllAccounts}")
