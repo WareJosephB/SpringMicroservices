@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import com.gareth.persistence.domain.Account;
 import com.gareth.service.AccountService;
 
+@CrossOrigin
 @RequestMapping("${URL.base}")
 @RestController
 public class AccountEndpoint {
@@ -32,9 +34,8 @@ public class AccountEndpoint {
 	private String offerURL;
 
 	@GetMapping("${URL.method.processOffer}")
-	public String send() {
-		String ticket = restTemplate.getForObject(accountURL, String.class);
-		String offer = restTemplate.getForObject(offerURL + ticket, String.class);
+	public String send(@PathVariable String accountNumber) {
+		String offer = restTemplate.getForObject(offerURL + accountNumber, String.class);
 		return offer.toString();
 	}
 
